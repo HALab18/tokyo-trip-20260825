@@ -436,6 +436,71 @@
   @media (min-width:520px){
     .tool-grid{ grid-template-columns:1fr 1fr 1fr; }
   }
+
+  /* ---------- Print buttons ---------- */
+  .print-bar{
+    max-width:640px;
+    margin:0 auto 8px;
+    padding:0 16px;
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+  .print-btn{
+    font-family:inherit;
+    font-size:12.5px;
+    font-weight:800;
+    color:#a1273f;
+    background:#fff;
+    border:2px solid #ffb49a;
+    padding:9px 16px;
+    border-radius:999px;
+    cursor:pointer;
+    transition:background .15s ease;
+  }
+  .print-btn:hover{ background:#ffe4dc; }
+  .print-hint{
+    max-width:640px;
+    margin:0 auto 14px;
+    padding:0 16px;
+    font-size:11.5px;
+    color:var(--ink-faint);
+    text-align:center;
+    line-height:1.7;
+    font-weight:500;
+  }
+  .print-hint b{ color:#a1273f; font-weight:800; }
+
+  /* ---------- Print layout (A4) ---------- */
+  @page{ size:A4 portrait; margin:14mm 12mm; }
+  @media print{
+    html, body{
+      background:#fff !important;
+      padding-bottom:0;
+      -webkit-print-color-adjust:exact;
+      print-color-adjust:exact;
+    }
+    .tabbar, .print-bar, .print-hint, .link-row,
+    .section-heading, .section-sub, .fac-grid, .tool-grid{ display:none !important; }
+    header{ padding:0 0 8px; }
+    header::before, header::after{ display:none; }
+    .hotel-card a{ display:none; }
+    .note-callout{ background:#fff !important; }
+    main{ padding:0; max-width:none; }
+    .day{ display:none !important; }
+    .day.active{ display:block !important; animation:none; }
+    body.print-all .day{ display:block !important; animation:none; break-before:page; page-break-before:always; }
+    body.print-all .day:first-of-type{ break-before:auto; page-break-before:auto; }
+    .stop, .stop-card, .note-callout, .day-title{
+      break-inside:avoid;
+      page-break-inside:avoid;
+    }
+    .stop{ margin-bottom:9px; }
+    .stop-card{ box-shadow:none !important; padding:9px 12px; }
+    .stop.transit .stop-card{ padding:7px 12px; }
+    footer{ padding:14px 0 0; }
+  }
 </style>
 </head>
 <body>
@@ -462,6 +527,14 @@
   <button class="tab" data-day="2">🌷 Day 2・水曜</button>
   <button class="tab" data-day="3">🔄 Day2・代替案</button>
   <button class="tab" data-day="4">🔄 Day2・代替案②</button>
+</div>
+
+<div class="print-bar">
+  <button class="print-btn" type="button" id="printOne">🖨️ 表示中のプランをA4印刷</button>
+  <button class="print-btn" type="button" id="printAll">📄 全プランをまとめてA4印刷</button>
+</div>
+<div class="print-hint">
+  印刷ダイアログの「送信先／プリンター」で<b>「PDFに保存」</b>を選ぶと、そのままPDFファイルとして保存できます（用紙A4・縦）。
 </div>
 
 <main>
@@ -1266,6 +1339,14 @@
       window.scrollTo({top: 0, behavior:'smooth'});
     });
   });
+
+  function printPlan(all){
+    document.body.classList.toggle('print-all', all);
+    window.print();
+  }
+  document.getElementById('printOne').addEventListener('click', () => printPlan(false));
+  document.getElementById('printAll').addEventListener('click', () => printPlan(true));
+  window.addEventListener('afterprint', () => document.body.classList.remove('print-all'));
 </script>
 
 </body>
