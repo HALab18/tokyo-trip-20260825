@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>東京観光ルートガイド | 8/25-26</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;800;900&family=Zen+Maru+Gothic:wght@500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-a: #fff3e9;
+    --bg-b: #ffe6ee;
+    --bg-c: #eaf6ff;
+    --card: #ffffff;
+    --card-line: #ffc4ad;
+    --ink: #2e1f20;
+    --ink-dim: #5c4244;
+    --ink-faint: #7d6062;
+
+    --line-marunouchi: #f0323f;
+    --line-tozai: #0d93b3;
+    --line-hibiya: #756a92;
+    --line-oedo: #d13d9e;
+    --line-chiyoda: #29a565;
+    --line-jr: #5c9c2e;
+    --line-toei-asakusa: #e8478f;
+    --line-mm: #e08900;
+    --line-keikyu: #1f6fb2;
+
+    --accent: #e8592f;
+    --accent-2: #ff7fae;
+    --mint: #2fa87f;
+    --lav: #8a67e0;
+    --radius: 22px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 8% 0%, var(--bg-c) 0%, transparent 45%),
+      radial-gradient(circle at 95% 15%, var(--bg-b) 0%, transparent 50%),
+      var(--bg-a);
+    color:var(--ink);
+    font-family:'Noto Sans JP', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    padding-bottom:80px;
+  }
+  .mono{ font-family:'JetBrains Mono', monospace; }
+
+  /* ---------- Header ---------- */
+  header{
+    padding:36px 20px 26px;
+    position:relative;
+    overflow:hidden;
+  }
+  header::before{
+    content:'🌸';
+    position:absolute;
+    font-size:90px;
+    opacity:0.14;
+    top:-20px;
+    right:-10px;
+    transform:rotate(12deg);
+  }
+  header::after{
+    content:'🍜';
+    position:absolute;
+    font-size:60px;
+    opacity:0.12;
+    bottom:-10px;
+    left:-6px;
+    transform:rotate(-10deg);
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.15em;
+    color:#d84a1f;
+    text-transform:uppercase;
+    margin-bottom:10px;
+    font-weight:700;
+    position:relative;
+  }
+  h1{
+    font-family:'Zen Maru Gothic', sans-serif;
+    font-size:28px;
+    font-weight:900;
+    margin:0 0 8px;
+    letter-spacing:-0.01em;
+    line-height:1.35;
+    color:#5a3d40;
+    position:relative;
+  }
+  .subtitle{
+    color:var(--ink-dim);
+    font-size:14px;
+    margin-bottom:22px;
+    font-weight:500;
+    position:relative;
+  }
+  .hotel-card{
+    background:var(--card);
+    border:2px solid var(--card-line);
+    border-radius:var(--radius);
+    padding:16px 18px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    box-shadow:0 8px 24px rgba(255,140,105,0.12);
+    position:relative;
+  }
+  .hotel-card .label{
+    font-size:11px;
+    color:var(--ink-faint);
+    letter-spacing:0.05em;
+    margin-bottom:4px;
+    font-weight:700;
+  }
+  .hotel-card .name{ font-weight:800; font-size:15px; color:var(--ink); }
+  .hotel-card a{
+    flex-shrink:0;
+    font-size:12px;
+    color:#fff;
+    background:linear-gradient(135deg, #ff9d7a, #ff7a9d);
+    padding:9px 16px;
+    border-radius:999px;
+    text-decoration:none;
+    font-weight:800;
+    white-space:nowrap;
+    box-shadow:0 4px 10px rgba(255,120,110,0.35);
+  }
+
+  /* ---------- Day tabs ---------- */
+  .tabbar{
+    position:sticky;
+    top:0;
+    z-index:10;
+    display:flex;
+    background:rgba(255,246,240,0.85);
+    backdrop-filter:blur(10px);
+    padding:12px 16px;
+    gap:10px;
+    border-bottom:2px solid var(--card-line);
+  }
+  .tab{
+    flex:1;
+    text-align:center;
+    padding:12px 8px;
+    border-radius:999px;
+    background:#fff;
+    border:2px solid var(--card-line);
+    color:var(--ink-dim);
+    font-weight:800;
+    font-size:13px;
+    cursor:pointer;
+    transition:all .18s ease;
+    font-family:'Noto Sans JP', sans-serif;
+  }
+  .tab.active{
+    background:linear-gradient(135deg, #ff8f5c, #ff5f96);
+    color:#fff;
+    border-color:transparent;
+    box-shadow:0 6px 14px rgba(230,90,90,0.4);
+    transform:translateY(-1px);
+  }
+
+  main{ padding:24px 16px 8px; max-width:640px; margin:0 auto; }
+  .day{ display:none; }
+  .day.active{ display:block; animation:fade .3s ease; }
+  @keyframes fade{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;} }
+
+  .day-title{
+    font-size:14px;
+    color:#a13e46;
+    font-weight:800;
+    letter-spacing:0.02em;
+    margin:4px 0 18px;
+  }
+
+  /* ---------- Timeline ---------- */
+  .timeline{
+    position:relative;
+    padding-left:28px;
+  }
+  .timeline::before{
+    content:'';
+    position:absolute;
+    left:7px; top:6px; bottom:6px;
+    width:3px;
+    border-radius:3px;
+    background:repeating-linear-gradient(180deg, var(--card-line) 0 8px, transparent 8px 14px);
+  }
+  .stop{
+    position:relative;
+    margin-bottom:16px;
+  }
+  .stop::before{
+    content:'🌷';
+    position:absolute;
+    left:-30px; top:2px;
+    width:20px; height:20px;
+    font-size:15px;
+    line-height:20px;
+    text-align:center;
+  }
+  .stop.transit::before{
+    content:'';
+    left:-25px; top:9px;
+    width:11px; height:11px;
+    border-radius:50%;
+    background:#fff;
+    border:2px solid var(--accent-2);
+  }
+
+  .stop-card{
+    background:var(--card);
+    border:2px solid var(--card-line);
+    border-radius:var(--radius);
+    padding:16px 18px;
+    box-shadow:0 6px 18px rgba(255,150,130,0.08);
+  }
+  .stop.transit .stop-card{
+    background:rgba(255,255,255,0.5);
+    border:2px dashed var(--card-line);
+    box-shadow:none;
+    padding:11px 16px;
+    border-radius:16px;
+  }
+
+  .stop-time{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:#fff;
+    font-weight:800;
+    letter-spacing:0.02em;
+    margin-bottom:8px;
+    display:inline-block;
+    background:linear-gradient(135deg, #f0703f, #e8497a);
+    padding:3px 10px;
+    border-radius:999px;
+  }
+  .stop.transit .stop-time{
+    color:var(--ink-dim);
+    background:none;
+    padding:0;
+    font-weight:700;
+  }
+
+  .stop-name{
+    font-size:15.5px;
+    font-weight:800;
+    margin-bottom:7px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-wrap:wrap;
+    color:var(--ink);
+  }
+  .stop.transit .stop-name{ font-size:13.5px; font-weight:600; color:var(--ink-dim); }
+
+  .stop-note{
+    font-size:13px;
+    color:var(--ink-dim);
+    line-height:1.7;
+    font-weight:500;
+  }
+
+  .badge{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    font-family:'Noto Sans JP', sans-serif;
+    font-size:11.5px;
+    font-weight:800;
+    padding:4px 11px 4px 8px;
+    border-radius:999px;
+    color:#fff;
+    white-space:nowrap;
+  }
+  .badge .dot{
+    width:7px; height:7px; border-radius:50%;
+    background:rgba(255,255,255,0.85);
+  }
+  .badge.marunouchi{ background:var(--line-marunouchi); color:#fff; }
+  .badge.tozai{ background:var(--line-tozai); color:#fff; }
+  .badge.hibiya{ background:var(--line-hibiya); color:#fff; }
+  .badge.oedo{ background:var(--line-oedo); color:#fff; }
+  .badge.chiyoda{ background:var(--line-chiyoda); color:#fff; }
+  .badge.jr{ background:var(--line-jr); color:#fff; }
+  .badge.asakusa{ background:var(--line-toei-asakusa); color:#fff; }
+  .badge.mm{ background:var(--line-mm); color:#fff; }
+  .badge.keikyu{ background:var(--line-keikyu); color:#fff; }
+  .badge.walk{ background:#c9576a; color:#fff; }
+  .badge.taxi{ background:#b8860b; color:#fff; }
+
+  .link-row{
+    margin-top:12px;
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+  }
+  .link-btn{
+    font-size:12px;
+    font-weight:800;
+    color:#a1273f;
+    background:#fff5f2;
+    border:2px solid #ffb49a;
+    padding:7px 13px;
+    border-radius:999px;
+    text-decoration:none;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+  }
+  .link-btn:hover{ background:#ffe4dc; }
+  .link-btn::after{ content:'↗'; font-size:11px; opacity:0.8; }
+  .link-btn.map{
+    color:#1f7a5c;
+    background:#eafaf3;
+    border-color:#8fd9bb;
+  }
+  .link-btn.map:hover{ background:#d8f3e8; }
+
+  .note-callout{
+    margin-top:24px;
+    background:linear-gradient(135deg, #fff0e6, #ffe9f2);
+    border:2px solid #ffb49a;
+    border-radius:var(--radius);
+    padding:16px 18px;
+    font-size:13px;
+    color:var(--ink-dim);
+    line-height:1.8;
+    font-weight:500;
+    position:relative;
+  }
+  .note-callout::before{
+    content:'💡';
+    margin-right:4px;
+  }
+  .note-callout b{ color:#a1273f; font-weight:800; }
+
+  /* ---------- Facility reference ---------- */
+  .section-heading{
+    font-family:'Zen Maru Gothic', sans-serif;
+    font-size:20px;
+    font-weight:900;
+    margin:40px 0 4px;
+    letter-spacing:-0.01em;
+    color:#5a3d40;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .section-sub{
+    font-size:13px;
+    color:var(--ink-faint);
+    margin-bottom:16px;
+    font-weight:500;
+  }
+
+  .fac-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:12px;
+  }
+  .fac-card{
+    background:var(--card);
+    border:2px solid var(--card-line);
+    border-radius:18px;
+    padding:16px 18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    text-decoration:none;
+    color:var(--ink);
+    transition:all .15s ease;
+    box-shadow:0 4px 14px rgba(200,90,70,0.10);
+  }
+  .fac-card:hover{ border-color:var(--accent); transform:translateY(-1px); box-shadow:0 8px 18px rgba(255,140,120,0.18); }
+  .fac-card .fac-name{ font-weight:800; font-size:14.5px; margin-bottom:3px; }
+  .fac-card .fac-desc{ font-size:12px; color:var(--ink-faint); font-weight:500; }
+  .fac-card .arrow{ font-size:18px; color:var(--accent); flex-shrink:0; }
+
+  /* ---------- Tools grid ---------- */
+  .tool-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+  }
+  .tool-card{
+    background:var(--card);
+    border:2px solid var(--card-line);
+    border-radius:18px;
+    padding:16px 14px;
+    text-decoration:none;
+    color:var(--ink);
+    box-shadow:0 4px 14px rgba(200,90,70,0.10);
+    transition:all .15s ease;
+  }
+  .tool-card:hover{ border-color:var(--accent); transform:translateY(-2px); }
+  .tool-icon{ font-size:24px; margin-bottom:8px; display:block; }
+  .tool-name{ font-weight:800; font-size:13px; margin-bottom:3px; }
+  .tool-desc{ font-size:11.5px; color:var(--ink-faint); line-height:1.5; font-weight:500; }
+
+  footer{
+    text-align:center;
+    padding:34px 20px 14px;
+    color:var(--ink-faint);
+    font-size:11.5px;
+    line-height:1.8;
+    font-weight:500;
+  }
+
+  @media (min-width:520px){
+    .tool-grid{ grid-template-columns:1fr 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">✿ Sendai → Tokyo ・ 2 Days ✿</div>
+  <h1>東京観光ルートガイド</h1>
+  <div class="subtitle">2026年8月25日(火)〜26日(水) ／ スーツケース2段階預けプラン</div>
+  <div class="hotel-card">
+    <div>
+      <div class="label">🏨 宿泊先</div>
+      <div class="name">グランドプリンスホテル新高輪</div>
+    </div>
+    <a href="https://www.princehotels.co.jp/shintakanawa/" target="_blank" rel="noopener">公式サイト</a>
+  </div>
+</header>
+
+<div class="tabbar">
+  <button class="tab active" data-day="1">🌞 Day 1・火曜</button>
+  <button class="tab" data-day="2">🌷 Day 2・水曜</button>
+  <button class="tab" data-day="3">🔄 Day2・代替案</button>
+  <button class="tab" data-day="4">🔄 Day2・代替案②</button>
+</div>
+
+<main>
+
+  <!-- ===================== DAY 1 ===================== -->
+  <section class="day active" id="day1">
+    <div class="day-title">8月25日（火）— 東京ドーム → 丸紅ギャラリー → 横浜美術館</div>
+
+    <div class="timeline">
+
+      <div class="stop">
+        <div class="stop-card">
+          <div class="stop-time">8:00頃</div>
+          <div class="stop-name">東京駅 到着</div>
+          <div class="stop-note">仙台から新幹線で到着。東北新幹線改札（丸の内北口方面）を出て、地下通路・動く歩道を進み、丸の内地下中央口周辺のコインロッカーへ。まずは荷物を確保。</div>
+          <div class="link-row">
+            <a class="link-btn" href="https://www.coinlocker-navi.com/" target="_blank" rel="noopener">コインロッカーなび</a>
+            <a class="link-btn" href="https://cloak.ecbo.io/ja" target="_blank" rel="noopener">ecbo cloak（予約制）</a>
+            <a class="link-btn" href="https://www.youtube.com/watch?v=-Lyu2HpXDew" target="_blank" rel="noopener">🎥 丸ノ内線乗り換え動画</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="stop transit">
+        <div class="stop-card">
+          <div class="stop-time">9:15〜9:30</div>
+          <div class="stop-name">
+            <span class="badge marunouchi"><span class="dot"></span>丸ノ内線</span>
+            東京駅 → 後楽園駅（4駅・約9分）
+          </div>
+          <div class="stop-note">後楽園駅2番出口が東京ドームに直結、徒歩1分。</div>
+        </div>
+      </div>
+
+      <div class="stop">
+        <div class="stop-card">
+          <div class="stop-time">10:00〜11:30</div>
+          <div class="stop-name">東京ドーム展示場（サカモトデイズ展）</div>
+          <div class="stop-note">予約済み。「サカモトデイズ展」観覧。会場内の詳細やフロア案内は東京ドームシティのイベント情報でご確認ください。</div>
+          <div class="link-row">
+            <a class="link-btn" href="https://www.tokyo-dome.co.jp/dome/" target="_blank" rel="noopener">公式サイト</a>
+            <a class="link-btn map" href="https://www.google.com/maps/dir/?api=1&amp;origin=後楽園駅2番出口&amp;destination=東京ドームシティ&amp;travelmode=walking" target="_blank" rel="noopener">🗺️ 後楽園駅→現地の地図</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="stop transit">
+        <div class="stop-card">
+          <div class="stop-time">11:30〜11:45</div>
+          <div class="stop-name">
+            <span class="badge taxi"><span class="dot"></span>タクシー 約¥1,100〜1,400</span>
+            後楽園（東京ドーム） → 竹橋（丸紅ギャラリー・約10分）
+          </div>
+          <div class="stop-note">水道橋・後楽園エリアから丸紅ビル前まで直接、距離約2km。荷物や天気を気にせず移動できます。</div>
+          <div class="stop-note" style="margin-top:8px; padding-top:8px; border-top:1px dashed var(--card-line);">💬 運転手さんには「大手町の丸紅ビルまでお願いします」と伝えるとスムーズです。</div>
+          <div class="stop-note" style="margin-top:8px; padding-top:8px; border-top:1px dashed var(--card-line);">
+            参考：地下鉄の場合<br>
+            <span class="badge marunouchi" style="margin-top:4px;"><span class="dot"></span>丸ノ内線</span>
+            後楽園 → 大手町（4駅・8分）
+            ＋
+            <span class="badge tozai"><span class="dot"></span>東西線</span>
+            大手町 → 竹橋（1駅・3分）
+          </div>
+          <div class="stop-note">竹橋駅<b style="color:var(--ink)">3a出口</b>を出てすぐ丸紅ビル。出口隣に直通通路があります。</div>
+        </div>
+      </div>
+
+      <div class="stop">
+        <div class="stop-card">
+          <div class="stop-time">12:00〜13:00頃</div>
+          <div class="stop-name">丸紅ギャラリー</div>
+          <div class="stop-note">丸紅ビル3階。入館は16:30まで。「日伊修好通商条約締結160周年＆シモネッタ歿後550年記念特別展」開催中。</div>
+          <div class="link-row">
+            <a class="link-btn" href="https://www.marubeni.com/gallery/" target="_blank" rel="noopener">公式サイト</a>
+            <a class="link-btn" href="https://www.marubeni.com/gallery/guide/" target="_blank" rel="noopener">利用案内・アクセス</a>
+            <a class="link-btn map" href="https://www.google.com/maps/dir/?api=1&amp;origin=竹橋駅3a出口&amp;destination=丸紅ギャラリー&amp;travelmode=walking" target="_blank" rel="noopener">🗺️ 竹橋駅→現地の地図</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="stop transit">
+        <div class="stop-card">
+          <div class="stop-time">13:00〜13:15</div>
+          <div class="stop-name">
+            <span class="badge taxi"><span class="dot"></span>タクシー 約¥900〜1,200</span>
+            竹橋 → 東京駅（丸の内口・約10分）
+          </div>
+          <div class="stop-note">距離約1.5km、比較的近距離。丸の内口に着けてもらうと、丸の内地下中央口のロッカーや丸ノ内線に近くて楽です。
+            電車の場合：<span class="badge tozai"><span class="dot"></span>東西線</span> 竹橋→大手町（2分）+ 徒歩約5〜7分（乗り換えなし）
+          </div>
+          <div class="stop-note" style="margin-top:8px; padding-top:8px; border-top:1px dashed var(--card-line);">💬 運転手さんには「東京駅の丸の内口までお願いします。八重洲側ではなく丸の内側です」と伝えると確実です。</div>
+        </div>
+      </div>
+
+      <div class="stop">
+        <div class="stop-card">
+          <div class="stop-time">13:15〜13:30</div>
+          <div class="stop-name">東京駅でスーツケース回収</div>
+          <div class="stop-note">朝預けたロッカーから回収。</div>
+        </div>
+      </div>
+
+      <div class="stop transit">
+        <div class="stop-card">
+          <div class="stop-time">13:30〜13:45</div>
+          <div class="stop-name">
+            <span class="badge jr"><span class="dot"></span>JR東海道線</span>
+            東京 → 品川（約10分・乗換なし）
+          </div>
+        </div>
+      </div>
+
+      <div class="stop">
+        <div class="stop-card">
+          <div class="stop-time">13:45〜14:00</div>
+          <div class="stop-name">品川駅ロッカーに預ける</div>
+          <div class="stop-note">高輪口側にロッカー多数。夕方また戻るので改札に近い場所を選ぶと楽。</div>
+        </div>
+      </div>
+
+      <div class="stop transit">
+        <div class="stop-card">
+          <div class="stop-time">14:00〜14:30</div>
+          <div class="stop-name">
+            <span class="badge jr"><span class="dot"></span>JR東海道線</span>
+            品川 → 横浜（約17分）
+          </div>
+          <div class="stop-name" style="margin-top:6px;">
+            <span class="badge mm"><span class="dot"></span>みなとみらい線</span>
+            横浜 → みなとみらい（1駅・3分）
+          </div>
+          <div class="stop-note">みなとみらい駅<b style="color:var(--ink)">3番出口</b>からマークイズみなとみらい「グランドガレリア」経由で徒歩3〜4分。</div>
+        </div>
+      </div>
+
+      <div class="stop">
+        <div class="stop-card">
+          <div class="stop-time">14:30〜17:00</div>
+          <div class="stop-name">横浜美術館</div>
+          <div class="stop-note">最終入館17:30。「マリー・アントワネット・スタイル」展開催中（8/1〜11/23）。</div>
+          <div class="link-row">
+            <a class="link-btn" href="https://yokohama.art.museum/" target="_blank" rel="noopener">公式サイト</a>
+            <a class="link-btn map" href="https://www.google.com/maps/dir/?api=1&amp;origin=みなとみらい駅3番出口&amp;destination=横浜美術館&amp;travelmode=walking" target="_blank" rel="noopener">🗺️ みなとみらい駅→現地の地図</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="stop transit">
+        <div class="stop-card">
+          <div class="stop-time">17:00〜17:30</div>
+          <div class="stop-name">
+            <span class="badge mm"><span class="dot"></span>みなとみらい線</span> +
+            <span class="badge jr"><span class="dot"></span>JR東海道線</span>
+            みなとみらい → 横浜 → 品川
+          </div>
+        </div>
+      </div>
+
+      <div class="stop">
+        <div class="stop-card">
+          <div class="stop-time">17:30頃</div>
+          <div class="stop-name">品川駅でスーツケース回収 → ホテルへ</div>
+          <div class="stop-note">ホテルまで徒歩約5分、または高輪台駅A1出口から徒歩約3分。</div>
+          <div class="link-row">
+            <a class="link-btn" href="https://www.princehotels.co.jp/shintakanawa/" target="_blank" rel="noopener">ホテル公式サイト</a>
+            <a class="link-btn map" href="https://www.google.com/maps/dir/?api=1&amp;origin=品川駅高輪口&amp;destination=グランドプリンスホテル新高輪&amp;travelmode=walking" target="_blank" rel="noopener">🗺️ 品川駅→ホテルの地図</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="note-callout">
+      <b>ポイント：</b>大型コインロッカーは朝〜昼過ぎの時間帯でも埋まりやすいので、コインロッカーなびで事前に空き状況を確認するか、見つからない場合はecbo cloakの予約制荷物預かりに切り替えるのがおすすめです。
+    </div>
+    <div class="note-callout" style="margin-top:12px;">
+      <b>タクシー運賃について：</b>本ページの金額は目安です。運賃は改定や道路状況により変動するため、実際の料金は乗車時のメーター表示でご確認ください。
+    </div>
+  </section>
+
+  <!-- ===================== DAY 2 ===================== -->
+  <section class="day" id="day2">
+    <div class="day-title">8月26日（水）— 新宿マルイ → 森美術館 → 東京駅 19:58発</div>
+
+    <div class="timeline">
+
+      <div class="stop">
+        <div class="stop-card">
+          <div class="stop-time">9:30頃</div>
+          <div class="stop-name">ホテル チェックアウト</div>
+          <div class="stop-note">徒歩約5分でJR/京急品川駅高輪口へ。</div>
+        </div>
+      </div>
+
+      <div class="stop transit">
+        <div class="stop-card">
+          <div class="stop-time">9:30〜9:40</div>
+          <div class="stop-name">
+            <span class="badge jr"><span class="dot"></span>JR東海道線</span>
+            品川 → 東京駅（約10分・乗換なし）
+          </div>
+        </div>
+      </div>
+
+      <div class="stop">
+        <div class="stop-card">
+          <div class="stop-time">9:45〜10:00</div>
+          <div class="stop-name">東京駅でスーツケースを預ける</div>
+          <div class="stop-note">丸の内地下中央口周辺のロッカーへ。夕方ここで回収して新幹線に乗車。</div>
+        </div>
+      </div>
+
+      <div class="stop transit">
+        <div class="stop-card">
+          <div class="stop-time">10:00〜10:15</div>
+          <div class="stop-name">
+            <span class="badge jr"><span class="dot"></span>JR中央線快速</span>
+            東京 → 新宿（約14分・乗換なし）
+          </div>
+          <div class="stop-note">新宿マルイ本館は東口・中央東口から徒歩約5分、または新宿三丁目駅A5出口から徒歩約1分。</div>
+        </div>
+      </div>
+
+      <div class="stop">
+        <div class="stop-card">
+          <div class="stop-time">10:30〜12:00</div>
+          <div class="stop-name">新宿マルイ本館 まじかるちいかわストア</div>
+          <div class="stop-note">常設店。周辺で早めの昼食も。</div>
+          <div class="link-row">
+            <a class="link-btn" href="https://www.0101.co.jp/003/shop-guide/shop-detail.html?shop_id=20771" target="_blank" rel="noopener">まじかるちいかわ 店舗ページ</a>
+            <a class="link-btn" href="https://www.0101.co.jp/003/" target="_blank" rel="noopener">新宿マルイ本館 公式</a>
+            <a class="link-btn map" href="https://www.google.com/maps/dir/?api=1&amp;origin=新宿三丁目駅A5出口&amp;destination=新宿マルイ本館&amp;travelmode=walking" target="_blank" rel="noopener">🗺️ 新宿三丁目駅→現地の地図</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="stop transit">
+        <div class="stop-card">
+          <div class="stop-time">12:15〜12:35</div>
+          <div class="stop-name">
+            <span class="badge marunouchi"><span class="dot"></span>丸ノ内線</span>
+            新宿三丁目 → 霞ヶ関（5駅・約11分）
+          </div>
+          <div class="stop-name" style="margin-top:6px;">
+            <span class="badge hibiya"><span class="dot"></span>日比谷線</span>
+            霞ヶ関 → 六本木（2駅・約5分）
+          </div>
+          <div class="stop-note">霞ヶ関は東京メトロ同士の正規乗換駅で、改札を出ずに同一駅構内で乗り換え可能。新宿駅の混雑や、事業者をまたぐ乗り換え（都営新宿線⇄都営大江戸線）を避けられます。<b style="color:var(--ink)">こちらが本命ルートです。</b></div>
+          <div class="stop-note" style="margin-top:8px; padding-top:8px; border-top:1px dashed var(--card-line);">参考：新宿駅（新宿三丁目駅ではない方）から出発する場合は、<span class="badge oedo" style="margin:0 2px;"><span class="dot"></span>都営大江戸線</span>で新宿→六本木が乗り換えなし・約15分。新宿マルイからJR新宿駅方面に移動する場合の選択肢です。ただし都営大江戸線のホームはJR新宿駅から離れた深い位置にあり、移動に時間がかかる点に注意してください。</div>
+          <div class="stop-note">六本木駅到着後は<b style="color:var(--ink)">3出口</b>を利用（六本木ヒルズまで徒歩約6分）。</div>
+        </div>
+      </div>
+
+      <div class="stop">
+        <div class="stop-card">
+          <div class="stop-time">13:00〜13:45</div>
+          <div class="stop-name">六本木ヒルズ 到着・実待</div>
+          <div class="stop-note">森タワー3階「美術館・展望台チケット／インフォメーション」でチケット引き換え。モール内を散策しながら待機。</div>
+        </div>
+      </div>
+
+      <div class="stop">
+        <div class="stop-card">
+          <div class="stop-time">14:00〜16:00</div>
+          <div class="stop-name">森美術館 <span class="badge walk">予約時間 14:00</span></div>
+          <div class="stop-note">六本木ヒルズ森タワー53階。水曜は22:00まで開館なので余裕あり。</div>
+          <div class="link-row">
+            <a class="link-btn" href="https://www.mori.art.museum/" target="_blank" rel="noopener">公式サイト</a>
+            <a class="link-btn" href="https://visit.mam-tcv-macg-hills.com/" target="_blank" rel="noopener">オンラインチケット</a>
+            <a class="link-btn map" href="https://www.google.com/maps/dir/?api=1&amp;origin=六本木駅3出口&amp;destination=森美術館&amp;travelmode=walking" target="_blank" rel="noopener">🗺️ 六本木駅→現地の地図</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="stop transit">
+        <div class="stop-card">
+          <div class="stop-time">16:15〜16:45</div>
+          <div class="stop-name">
+            <span class="badge oedo"><span class="dot"></span>都営大江戸線</span>
+            六本木 → 大門（約6分）
+          </div>
+          <div class="stop-name" style="margin-top:6px;">
+            <span class="badge jr"><span class="dot"></span>JR山手線/京浜東北線</span>
+            浜松町 → 東京（約5分）
+          </div>
+        </div>
+      </div>
+
+      <div class="stop">
+        <div class="stop-card">
+          <div class="stop-time">16:45〜19:30</div>
+          <div class="stop-name">東京駅でスーツケース回収 ＋ 自由時間</div>
+          <div class="stop-note">キャラクターストリートやグランスタで夕食・お土産探し。</div>
+        </div>
+      </div>
+
+      <div class="stop">
+        <div class="stop-card">
+          <div class="stop-time">19:58</div>
+          <div class="stop-name">新幹線 発車</div>
+          <div class="stop-note">仙台方面へ。</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="note-callout">
+      <b>ポイント：</b>森美術館は日時指定券制。14:00の予約に対し、53階までのエレベーター移動を見込んで13:45頃には受付を済ませておくと安心です。
+    </div>
+  </section>
+
+  <!-- ===================== DAY 2 代替案 ===================== -->
+  <section class="day" id="day3">
+    <div class="day-title">8月26日（水）代替案 — 丸紅ギャラリー10:00開館 → 新宿マルイ → 森美術館</div>
+
+    <div class="timeline">
+
+      <div class="stop">
+        <div class="stop-card">
+          <div class="stop-time">8:45頃</div>
+          <div class="stop-name">ホテル チェックアウト</div>
+          <div class="stop-note">徒歩約5分でJR/京急品川駅高輪口へ。通常案より約45分早い出発です。</div>
+        </div>
+      </div>
+
+      <div class="stop transit">
+        <div class="stop-card">
+          <div class="stop-time">8:45〜8:55</div>
+          <div class="stop-name">
+            <span class="badge jr"><span class="dot"></span>JR東海道線</span>
+            品川 → 東京駅（約10分・乗換なし）
+          </div>
+        </div>
+      </div>
+
+      <div class="stop">
+        <div class="stop-card">
+          <div class="stop-time">9:00〜9:15</div>
+          <div class="stop-name">東京駅でスーツケースを預ける</div>
+          <div class="stop-note">丸の内地下中央口周辺のロッカーへ。夕方ここで回収して新幹線に乗車。</div>
+        </div>
+      </div>
+
+      <div class="stop transit">
+        <div class="stop-card">
+          <div class="stop-time">9:15〜9:30</div>
+          <div class="stop-name">
+            <span class="badge marunouchi"><span class="dot"></span>丸ノ内線</span>
+            東京 → 大手町（1駅・約2分）
+          </div>
+          <div class="stop-name" style="margin-top:6px;">
+            <span class="badge tozai"><span class="dot"></span>東西線</span>
+            大手町 → 竹橋（1駅・約3分）
+          </div>
+          <div class="stop-note">大手町での乗り換えを含めて約15分見ておくと安心です。</div>
+        </div>
+      </div>
+
+      <div class="stop">
+        <div class="stop-card">
+          <div class="stop-time">9:30〜10:00</div>
+          <div class="stop-name">竹橋駅着・開館まで待機</div>
+          <div class="stop-note">竹橋駅<b style="color:var(--ink)">3a出口</b>隣に丸紅ビルへの直通通路あり。開館10:00まで周辺で軽く時間調整。</div>
+        </div>
+      </div>
+
+      <div class="stop">
+        <div class="stop-card">
+          <div class="stop-time">10:00〜10:45</div>
+          <div class="stop-name">丸紅ギャラリー</div>
+          <div class="stop-note">開館は10:00〜17:00（入館16:30まで）、休館日は日曜・祝日。「日伊修好通商条約締結160周年＆シモネッタ歿後550年記念特別展」開催中。</div>
+          <div class="link-row">
+            <a class="link-btn" href="https://www.marubeni.com/gallery/" target="_blank" rel="noopener">公式サイト</a>
+            <a class="link-btn" href="https://www.marubeni.com/gallery/guide/" target="_blank" rel="noopener">利用案内・アクセス</a>
+            <a class="link-btn map" href="https://www.google.com/maps/dir/?api=1&amp;origin=竹橋駅3a出口&amp;destination=丸紅ギャラリー&amp;travelmode=walking" target="_blank" rel="noopener">🗺️ 竹橋駅→現地の地図</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="stop transit">
+        <div class="stop-card">
+          <div class="stop-time">10:45〜11:10</div>
+          <div class="stop-name">
+            <span class="badge tozai"><span class="dot"></span>東西線</span>
+            竹橋 → 大手町（1駅・約3分）
+          </div>
+          <div class="stop-name" style="margin-top:6px;">
+            <span class="badge marunouchi"><span class="dot"></span>丸ノ内線</span>
+            大手町 → 新宿三丁目（約20分）
+          </div>
+          <div class="stop-note">乗り換え込みで約25分。新宿三丁目駅A5出口が新宿マルイ本館至近です。</div>
+        </div>
+      </div>
+
+      <div class="stop">
+        <div class="stop-card">
+          <div class="stop-time">11:15〜12:15</div>
+          <div class="stop-name">新宿マルイ本館 まじかるちいかわストア</div>
+          <div class="stop-note">常設店。通常案（90分）より短い60分枠です。周辺で軽い昼食も。</div>
+          <div class="link-row">
+            <a class="link-btn" href="https://www.0101.co.jp/003/shop-guide/shop-detail.html?shop_id=20771" target="_blank" rel="noopener">まじかるちいかわ 店舗ページ</a>
+            <a class="link-btn" href="https://www.0101.co.jp/003/" target="_blank" rel="noopener">新宿マルイ本館 公式</a>
+            <a class="link-btn map" href="https://www.google.com/maps/dir/?api=1&amp;origin=新宿三丁目駅A5出口&amp;destination=新宿マルイ本館&amp;travelmode=walking" target="_blank" rel="noopener">🗺️ 新宿三丁目駅→現地の地図</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="stop transit">
+        <div class="stop-card">
+          <div class="stop-time">12:20〜12:45</div>
+          <div class="stop-name">
+            <span class="badge marunouchi"><span class="dot"></span>丸ノ内線</span>
+            新宿三丁目 → 霞ヶ関（5駅・約11分）
+          </div>
+          <div class="stop-name" style="margin-top:6px;">
+            <span class="badge hibiya"><span class="dot"></span>日比谷線</span>
+            霞ヶ関 → 六本木（2駅・約5分）
+          </div>
+          <div class="stop-note">霞ヶ関は東京メトロ同士の正規乗換駅で、改札を出ずに同一駅構内で乗り換え可能。こちらが本命ルートです。</div>
+          <div class="stop-note" style="margin-top:8px; padding-top:8px; border-top:1px dashed var(--card-line);">参考：新宿駅（新宿三丁目駅ではない方）から出発する場合は、<span class="badge oedo" style="margin:0 2px;"><span class="dot"></span>都営大江戸線</span>で新宿→六本木が乗り換えなし・約15分。ただし都営大江戸線のホームはJR新宿駅から離れた深い位置にあり、移動に時間がかかる点に注意してください。</div>
+          <div class="stop-note">六本木駅到着後は<b style="color:var(--ink)">3出口</b>を利用（六本木ヒルズまで徒歩約6分）。</div>
+        </div>
+      </div>
+
+      <div class="stop">
+        <div class="stop-card">
+          <div class="stop-time">12:45〜13:45</div>
+          <div class="stop-name">六本木ヒルズ 到着・実待</div>
+          <div class="stop-note">森タワー3階「美術館・展望台チケット／インフォメーション」でチケット引き換え。モール内を散策しながら待機。</div>
+        </div>
+      </div>
+
+      <div class="stop">
+        <div class="stop-card">
+          <div class="stop-time">14:00〜16:00</div>
+          <div class="stop-name">森美術館 <span class="badge walk">予約時間 14:00</span></div>
+          <div class="stop-note">六本木ヒルズ森タワー53階。水曜は22:00まで開館なので余裕あり。</div>
+          <div class="link-row">
+            <a class="link-btn" href="https://www.mori.art.museum/" target="_blank" rel="noopener">公式サイト</a>
+            <a class="link-btn" href="https://visit.mam-tcv-macg-hills.com/" target="_blank" rel="noopener">オンラインチケット</a>
+            <a class="link-btn map" href="https://www.google.com/maps/dir/?api=1&amp;origin=六本木駅3出口&amp;destination=森美術館&amp;travelmode=walking" target="_blank" rel="noopener">🗺️ 六本木駅→現地の地図</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="stop transit">
+        <div class="stop-card">
+          <div class="stop-time">16:15〜16:45</div>
+          <div class="stop-name">
+            <span class="badge oedo"><span class="dot"></span>都営大江戸線</span>
+            六本木 → 大門（約6分）
+          </div>
+          <div class="stop-name" style="margin-top:6px;">
+            <span class="badge jr"><span class="dot"></span>JR山手線/京浜東北線</span>
+            浜松町 → 東京（約5分）
+          </div>
+        </div>
+      </div>
+
+      <div class="stop">
+        <div class="stop-card">
+          <div class="stop-time">16:45〜19:30</div>
+          <div class="stop-name">東京駅でスーツケース回収 ＋ 自由時間</div>
+          <div class="stop-note">キャラクターストリートやグランスタで夕食・お土産探し。</div>
+        </div>
+      </div>
+
+      <div class="stop">
+        <div class="stop-card">
+          <div class="stop-time">19:58</div>
+          <div class="stop-name">新幹線 発車</div>
+          <div class="stop-note">仙台方面へ。</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="note-callout">
+      <b>通常案との違い：</b>丸紅ギャラリーを朝一番・開館直後（10:00）に組み込んだプランです。そのぶんホテルチェックアウトが通常案より約45分早く（9:30→8:45）、新宿マルイの滞在時間も90分→60分に圧縮されています。森美術館の14:00予約は両案とも固定です。
+    </div>
+  </section>
+
+  <!-- ===================== DAY 2 代替案② ===================== -->
+  <section class="day" id="day4">
+    <div class="day-title">8月26日（水）代替案② — 丸紅ギャラリー(80分) → 森美術館 → 新宿マルイ（最後）</div>
+
+    <div class="timeline">
+
+      <div class="stop">
+        <div class="stop-card">
+          <div class="stop-time">8:45頃</div>
+          <div class="stop-name">ホテル チェックアウト</div>
+          <div class="stop-note">徒歩約5分でJR/京急品川駅高輪口へ。通常案より約45分早い出発です。</div>
+        </div>
+      </div>
+
+      <div class="stop transit">
+        <div class="stop-card">
+          <div class="stop-time">8:45〜8:55</div>
+          <div class="stop-name">
+            <span class="badge jr"><span class="dot"></span>JR東海道線</span>
+            品川 → 東京駅（約10分・乗換なし）
+          </div>
+        </div>
+      </div>
+
+      <div class="stop">
+        <div class="stop-card">
+          <div class="stop-time">9:00〜9:15</div>
+          <div class="stop-name">東京駅でスーツケースを預ける</div>
+          <div class="stop-note">丸の内地下中央口周辺のロッカーへ。夕方ここで回収して新幹線に乗車。</div>
+        </div>
+      </div>
+
+      <div class="stop transit">
+        <div class="stop-card">
+          <div class="stop-time">9:15〜9:30</div>
+          <div class="stop-name">
+            <span class="badge marunouchi"><span class="dot"></span>丸ノ内線</span>
+            東京 → 大手町（1駅・約2分）
+          </div>
+          <div class="stop-name" style="margin-top:6px;">
+            <span class="badge tozai"><span class="dot"></span>東西線</span>
+            大手町 → 竹橋（1駅・約3分）
+          </div>
+          <div class="stop-note">大手町での乗り換えを含めて約15分見ておくと安心です。</div>
+        </div>
+      </div>
+
+      <div class="stop">
+        <div class="stop-card">
+          <div class="stop-time">9:30〜10:00</div>
+          <div class="stop-name">竹橋駅着・開館まで待機</div>
+          <div class="stop-note">竹橋駅<b style="color:var(--ink)">3a出口</b>隣に丸紅ビルへの直通通路あり。開館10:00まで周辺で軽く時間調整。</div>
+        </div>
+      </div>
+
+      <div class="stop">
+        <div class="stop-card">
+          <div class="stop-time">10:00〜11:20</div>
+          <div class="stop-name">丸紅ギャラリー <span class="badge walk">1時間20分</span></div>
+          <div class="stop-note">開館は10:00〜17:00（入館16:30まで）、休館日は日曜・祝日。「日伊修好通商条約締結160周年＆シモネッタ歿後550年記念特別展」開催中。ゆったり鑑賞できる枠です。</div>
+          <div class="link-row">
+            <a class="link-btn" href="https://www.marubeni.com/gallery/" target="_blank" rel="noopener">公式サイト</a>
+            <a class="link-btn" href="https://www.marubeni.com/gallery/guide/" target="_blank" rel="noopener">利用案内・アクセス</a>
+            <a class="link-btn map" href="https://www.google.com/maps/dir/?api=1&amp;origin=竹橋駅3a出口&amp;destination=丸紅ギャラリー&amp;travelmode=walking" target="_blank" rel="noopener">🗺️ 竹橋駅→現地の地図</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="stop transit">
+        <div class="stop-card">
+          <div class="stop-time">11:20〜11:55</div>
+          <div class="stop-name">
+            <span class="badge tozai"><span class="dot"></span>東西線</span>
+            竹橋 → 大手町（1駅・約3分）
+          </div>
+          <div class="stop-name" style="margin-top:6px;">
+            <span class="badge chiyoda"><span class="dot"></span>千代田線</span>
+            大手町 → 霞ヶ関（2駅・約4分）
+          </div>
+          <div class="stop-name" style="margin-top:6px;">
+            <span class="badge hibiya"><span class="dot"></span>日比谷線</span>
+            霞ヶ関 → 六本木（2駅・約5分）
+          </div>
+          <div class="stop-note">乗り換えが2回（大手町・霞ヶ関）になります。所要時間は目安で、正確な分数は当日アプリでご確認ください。</div>
+          <div class="stop-note">六本木駅到着後は<b style="color:var(--ink)">3出口</b>を利用（六本木ヒルズまで徒歩約6分）。</div>
+        </div>
+      </div>
+
+      <div class="stop">
+        <div class="stop-card">
+          <div class="stop-time">11:55〜13:45</div>
+          <div class="stop-name">六本木ヒルズ 到着・昼食・実待</div>
+          <div class="stop-note">森タワー3階「美術館・展望台チケット／インフォメーション」でチケット引き換え。昼食も含めゆったり時間があります。</div>
+        </div>
+      </div>
+
+      <div class="stop">
+        <div class="stop-card">
+          <div class="stop-time">14:00〜16:00</div>
+          <div class="stop-name">森美術館 <span class="badge walk">予約時間 14:00</span></div>
+          <div class="stop-note">六本木ヒルズ森タワー53階。水曜は22:00まで開館なので余裕あり。</div>
+          <div class="link-row">
+            <a class="link-btn" href="https://www.mori.art.museum/" target="_blank" rel="noopener">公式サイト</a>
+            <a class="link-btn" href="https://visit.mam-tcv-macg-hills.com/" target="_blank" rel="noopener">オンラインチケット</a>
+            <a class="link-btn map" href="https://www.google.com/maps/dir/?api=1&amp;origin=六本木駅3出口&amp;destination=森美術館&amp;travelmode=walking" target="_blank" rel="noopener">🗺️ 六本木駅→現地の地図</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="stop transit">
+        <div class="stop-card">
+          <div class="stop-time">16:15〜16:40</div>
+          <div class="stop-name">
+            <span class="badge hibiya"><span class="dot"></span>日比谷線</span>
+            六本木 → 霞ヶ関（2駅・約5分）
+          </div>
+          <div class="stop-name" style="margin-top:6px;">
+            <span class="badge marunouchi"><span class="dot"></span>丸ノ内線</span>
+            霞ヶ関 → 新宿三丁目（5駅・約11分）
+          </div>
+          <div class="stop-note">朝の逆ルート。霞ヶ関は東京メトロ同士の乗換駅で、改札を出ずに乗り換え可能です。</div>
+        </div>
+      </div>
+
+      <div class="stop">
+        <div class="stop-card">
+          <div class="stop-time">16:45〜18:15</div>
+          <div class="stop-name">新宿マルイ本館 まじかるちいかわストア <span class="badge walk">最後に配置</span></div>
+          <div class="stop-note">一番最後の予定として配置。周辺で夕食も。</div>
+          <div class="link-row">
+            <a class="link-btn" href="https://www.0101.co.jp/003/shop-guide/shop-detail.html?shop_id=20771" target="_blank" rel="noopener">まじかるちいかわ 店舗ページ</a>
+            <a class="link-btn" href="https://www.0101.co.jp/003/" target="_blank" rel="noopener">新宿マルイ本館 公式</a>
+            <a class="link-btn map" href="https://www.google.com/maps/dir/?api=1&amp;origin=新宿三丁目駅A5出口&amp;destination=新宿マルイ本館&amp;travelmode=walking" target="_blank" rel="noopener">🗺️ 新宿三丁目駅→現地の地図</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="stop transit">
+        <div class="stop-card">
+          <div class="stop-time">18:15〜18:40</div>
+          <div class="stop-name">
+            <span class="badge marunouchi"><span class="dot"></span>丸ノ内線</span>
+            新宿三丁目 → 東京駅（乗換なし）
+          </div>
+          <div class="stop-note">駅数が多い区間のため所要時間は目安です。当日アプリでご確認ください。</div>
+        </div>
+      </div>
+
+      <div class="stop">
+        <div class="stop-card">
+          <div class="stop-time">18:40〜19:50</div>
+          <div class="stop-name">東京駅でスーツケース回収 → 新幹線改札へ</div>
+          <div class="stop-note">荷物回収は済んでいるので、乗車自体には十分な余裕があります。</div>
+        </div>
+      </div>
+
+      <div class="stop">
+        <div class="stop-card">
+          <div class="stop-time">19:58</div>
+          <div class="stop-name">新幹線 発車</div>
+          <div class="stop-note">仙台方面へ。</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="note-callout">
+      <b>この案の特徴：</b>丸紅ギャラリー（10:00〜11:20・80分）と森美術館（14:00予約）という2つの固定時刻の間に、六本木ヒルズでの昼食＋余裕を挟む構成です。新宿マルイでの買い物・夕食を一番最後に配置しているため、東京駅での自由時間枠はなくなります。チェックアウトは通常案より約45分早い8:45です。
+    </div>
+  </section>
+
+</main>
+
+<h2 class="section-heading" style="padding:0 16px; max-width:640px; margin-left:auto; margin-right:auto;">💌 施設 公式サイト一覧</h2>
+<div class="section-sub" style="padding:0 16px; max-width:640px; margin-left:auto; margin-right:auto;">最新の開館状況・チケット情報はこちらから確認できます</div>
+<div class="fac-grid" style="padding:0 16px; max-width:640px; margin:0 auto;">
+  <a class="fac-card" href="https://www.tokyo-dome.co.jp/dome/" target="_blank" rel="noopener">
+    <div><div class="fac-name">東京ドームシティ</div><div class="fac-desc">イベント情報・座席案内</div></div>
+    <div class="arrow">→</div>
+  </a>
+  <a class="fac-card" href="https://www.marubeni.com/gallery/" target="_blank" rel="noopener">
+    <div><div class="fac-name">丸紅ギャラリー</div><div class="fac-desc">展覧会情報・利用案内</div></div>
+    <div class="arrow">→</div>
+  </a>
+  <a class="fac-card" href="https://www.mori.art.museum/" target="_blank" rel="noopener">
+    <div><div class="fac-name">森美術館</div><div class="fac-desc">展覧会情報</div></div>
+    <div class="arrow">→</div>
+  </a>
+  <a class="fac-card" href="https://visit.mam-tcv-macg-hills.com/" target="_blank" rel="noopener">
+    <div><div class="fac-name">森美術館 オンラインチケット</div><div class="fac-desc">日時指定券の確認・購入</div></div>
+    <div class="arrow">→</div>
+  </a>
+  <a class="fac-card" href="https://yokohama.art.museum/" target="_blank" rel="noopener">
+    <div><div class="fac-name">横浜美術館</div><div class="fac-desc">展覧会情報・開館状況</div></div>
+    <div class="arrow">→</div>
+  </a>
+  <a class="fac-card" href="https://www.0101.co.jp/003/" target="_blank" rel="noopener">
+    <div><div class="fac-name">新宿マルイ本館</div><div class="fac-desc">フロア案内・アクセス</div></div>
+    <div class="arrow">→</div>
+  </a>
+  <a class="fac-card" href="https://www.princehotels.co.jp/shintakanawa/" target="_blank" rel="noopener">
+    <div><div class="fac-name">グランドプリンスホテル新高輪</div><div class="fac-desc">宿泊・アクセス案内</div></div>
+    <div class="arrow">→</div>
+  </a>
+</div>
+
+<h2 class="section-heading" style="padding:0 16px; max-width:640px; margin-left:auto; margin-right:auto;">🎀 べんりなサイト・アプリ</h2>
+<div class="section-sub" style="padding:0 16px; max-width:640px; margin-left:auto; margin-right:auto;">当日の移動・荷物預けに使えるツール</div>
+<div class="tool-grid" style="padding:0 16px; max-width:640px; margin:0 auto;">
+  <a class="tool-card" href="https://transit.yahoo.co.jp/" target="_blank" rel="noopener">
+    <span class="tool-icon">🚉</span>
+    <div class="tool-name">Yahoo!乗換案内</div>
+    <div class="tool-desc">乗り換え・出口・所要時間の確認に</div>
+  </a>
+  <a class="tool-card" href="https://www.google.com/maps" target="_blank" rel="noopener">
+    <span class="tool-icon">🗺️</span>
+    <div class="tool-name">Google マップ</div>
+    <div class="tool-desc">徒歩ルート・現在地確認</div>
+  </a>
+  <a class="tool-card" href="https://www.coinlocker-navi.com/" target="_blank" rel="noopener">
+    <span class="tool-icon">🧳</span>
+    <div class="tool-name">コインロッカーなび</div>
+    <div class="tool-desc">主要駅のロッカー空き状況を検索</div>
+  </a>
+  <a class="tool-card" href="https://cloak.ecbo.io/ja" target="_blank" rel="noopener">
+    <span class="tool-icon">🔒</span>
+    <div class="tool-name">ecbo cloak</div>
+    <div class="tool-desc">ロッカー満杯時の予約制荷物預かり</div>
+  </a>
+  <a class="tool-card" href="https://www.tokyometro.jp/" target="_blank" rel="noopener">
+    <span class="tool-icon">Ⓜ️</span>
+    <div class="tool-name">東京メトロ</div>
+    <div class="tool-desc">運行情報・駅構内図</div>
+  </a>
+  <a class="tool-card" href="https://www.kotsu.metro.tokyo.jp/" target="_blank" rel="noopener">
+    <span class="tool-icon">🚇</span>
+    <div class="tool-name">都営交通（大江戸線ほか）</div>
+    <div class="tool-desc">運行情報・駅構内図</div>
+  </a>
+</div>
+
+<footer>
+  🌸 仙台 ⇄ 東京 新幹線移動を含む2日間プラン ／ 開館状況・チケット情報は必ず公式サイトで直前にご確認ください 🌸
+</footer>
+
+<script>
+  const tabs = document.querySelectorAll('.tab');
+  const days = document.querySelectorAll('.day');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      days.forEach(d => d.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('day' + tab.dataset.day).classList.add('active');
+      window.scrollTo({top: 0, behavior:'smooth'});
+    });
+  });
+</script>
+
+</body>
+</html>
